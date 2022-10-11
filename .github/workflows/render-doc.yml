@@ -26,10 +26,10 @@ jobs:
       - name: Set up MATLAB
         uses: matlab-actions/setup-matlab@v1
 
-      - name: Run command to render live script
+      - name: Run command to render live script to html
         uses: matlab-actions/run-command@v1
         with:
-          command: run("export")
+          command: export('index.mlx', 'Format', 'html')
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
@@ -37,6 +37,11 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: .
+
+      - name: Run command to render live script to pdf
+        uses: matlab-actions/run-command@v1
+        with:
+          command: export('index.mlx', 'Format', 'pdf')
 
       - name: Save exported PDF (index.pdf)
         uses: actions/upload-artifact@v3
